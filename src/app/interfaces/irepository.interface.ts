@@ -3,8 +3,15 @@ import RequestListDTO from "src/app/dto/requestlist.dto";
 import Ischema from "src/app/interfaces/ischema.interface";
 import RequestPopulateDTO from "src/app/dto/requestpopulate.dto";
 import { ConfigService } from "@nestjs/config";
+import Idto from "./idto.interface";
+import ResultDeleteDTO from "../dto/resultdelete.dto";
+
 
 export default interface IRepository {
+  findCount(options: RequestListDTO): number | Promise<number>;
+  delete(id: string): any;
+  update(new_id: any, preparedObj: Idto): any;
+  save(preparedObj: Idto): any;
   findAll(info?: RequestListDTO): Promise<any[]>;
 
   processAgregateForList(

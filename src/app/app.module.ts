@@ -6,10 +6,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 
 import configuration from 'src/config/configuration';
-// import UserModule from 'src/user/user.module';
+import UserModule from 'src/user/user.module';
 import Idto from './interfaces/idto.interface';
 import Ischema from './interfaces/ischema.interface';
-// import AuthModule from 'src/auth/auth.module';
+import AuthModule from 'src/auth/auth.module';
 // import LanguageModule from 'src/language/language.module';
 // import NomenclatureModule from 'src/nomenclature/nomenclature.module';
 // import FileModule from 'src/file/file.module';
@@ -31,18 +31,18 @@ import Ischema from './interfaces/ischema.interface';
 // import SupportModule from 'src/support/support.module';
 // import SiteSocialModule from 'src/sitesocial/sitesocial.module';
 
-// import { MediaService } from 'src/app/services/media.service';
-// import { UrlRelationService } from 'src/app/services/urlrelation.service';
-// import { UrlRelationRepository } from 'src/app/repositories/urlrelation.repository';
-// import { UrlRelationController } from 'src/app/controllers/urlrelation.controller';
-// import { UrlRelationSchema } from 'src/app/schemas/urlrelation.schema';
+import { MediaService } from 'src/app/services/media.service';
+import { UrlRelationService } from 'src/app/services/urlrelation.service';
+import { UrlRelationRepository } from 'src/app/repositories/urlrelation.repository';
+import { UrlRelationController } from 'src/app/controllers/urlrelation.controller';
+import { UrlRelationSchema } from 'src/app/schemas/urlrelation.schema';
 import { CommonTools } from 'src/app/tools/commontools';
 // import AdvertisementModule from 'src/advertisement/advertisement.module';
 // import TestimonialModule from 'src/testimonial/testimonial.module';
-// import { SiteConfigController } from 'src/app/controllers/siteconfig.controller';
-// import { SiteConfigService } from 'src/app/services/siteconfig.service';
-// import { SiteConfigRepository } from 'src/app/repositories/siteconfig.repository';
-// import { SiteConfigSchema } from 'src/app/schemas/siteconfig.schema';
+import { SiteConfigController } from 'src/app/controllers/siteconfig.controller';
+import { SiteConfigService } from 'src/app/services/siteconfig.service';
+import { SiteConfigRepository } from 'src/app/repositories/siteconfig.repository';
+import { SiteConfigSchema } from 'src/app/schemas/siteconfig.schema';
 
 
 @Module({
@@ -59,14 +59,14 @@ import { CommonTools } from 'src/app/tools/commontools';
       },
     ),
 
-    // MongooseModule.forFeature([
-    //   { name: 'UrlRelation', schema: UrlRelationSchema },
-    //   { name: 'SiteConfig', schema: SiteConfigSchema }
+    MongooseModule.forFeature([
+      { name: 'UrlRelation', schema: UrlRelationSchema },
+      { name: 'SiteConfig', schema: SiteConfigSchema }
 
-    // ]),
+    ]),
 
-    // AuthModule,
-    // UserModule,
+    AuthModule,
+    UserModule,
     // LanguageModule,
     // NomenclatureModule,
     // FileModule,
@@ -92,22 +92,22 @@ import { CommonTools } from 'src/app/tools/commontools';
 
   ],
   controllers: [AppController, 
-    // UrlRelationController, 
-    // SiteConfigController
+    UrlRelationController, 
+    SiteConfigController
   ],
   providers: [AppService,
     Idto,
     Ischema,
-    // MediaService,
-    // UrlRelationService,
-    // UrlRelationRepository,
+    MediaService,
+    UrlRelationService,
+    UrlRelationRepository,
     CommonTools,
-    // SiteConfigService,
-    // SiteConfigRepository
+    SiteConfigService,
+    SiteConfigRepository
   ],
   exports: [
-    // MediaService, 
-    // UrlRelationService
+    MediaService, 
+    UrlRelationService
   ],
 })
 export default class AppModule { }
