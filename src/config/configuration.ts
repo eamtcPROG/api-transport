@@ -37,8 +37,8 @@ export default () => ({
       private_path: process.env.STORAGE_PRIVATE_PATH,
     },
     google: {
-      console_clientid: process.env.GCONSOLE_CLIENTID,
-      console_clientsecret: process.env.GCONSOLE_CLIENTSECRET,
+      console_clientId: process.env.GOOGLE_CLIENT_ID,
+      console_clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
   
   });
