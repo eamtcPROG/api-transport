@@ -25,11 +25,11 @@ import {
   import ResultObjectDTO from 'src/app/dto/resultobject.dto';
   import { ToolsGenerateResponse } from 'src/app/tools/toolsgenerateresponse';
   import { MessageTypes } from 'src/app/tools/messagetypes';
-  // import { SocialDto } from '../dto/social.dto';
+  import { SocialDto } from 'src/user/dto/social.dto';
   import { SocialService } from '../services/social.service';
   import ResultListDTO from 'src/app/dto/resultlist.dto';
   import { ParseParamsList } from 'src/app/interceptors/parseparamslist.interceptor';
-  // import { PostSocialDto } from '../dto/postsocial.dto';
+  import { PostSocialDto } from 'src/user/dto/postsocial.dto';
   import { PrepareObjectBody } from 'src/app/interceptors/prepareobjectbody.interceptor';
   
   import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
@@ -41,14 +41,14 @@ import {
     constructor(private socialService: SocialService) {}
   
     @ApiOperation({ summary: 'Add Social' })
-    // @ApiBody({ type: PostSocialDto })
+    @ApiBody({ type: PostSocialDto })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //   type: SocialDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: SocialDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @Post('/')
-    // @UseInterceptors(new PrepareObjectBody(PostSocialDto))
+    @UseInterceptors(new PrepareObjectBody(PostSocialDto))
     public async add(@Body() body, @Res() res): Promise<ResultObjectDTO> {
       const obj = await this.socialService.save(body);
       if (obj == null) {
@@ -64,14 +64,14 @@ import {
   
 
     @ApiOperation({ summary: 'Add array Social' })
-    // @ApiBody({ type: Array<SocialDto> })
+    @ApiBody({ type: Array<SocialDto> })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //   type: SocialDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: SocialDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @Post('/array')
-    // @UseInterceptors(new PrepareObjectBody(Array<SocialDto>))
+    @UseInterceptors(new PrepareObjectBody(Array<SocialDto>))
     public async addArray(@Body() body, @Res() res): Promise<ResultObjectDTO> {
       const obj = await this.socialService.parseArrayForSave(body);
 
@@ -145,10 +145,10 @@ import {
   
     @ApiOperation({ summary: 'Get Social by ID' })
     @ApiParam({ name: 'id', description: 'Social id', required: true })
-    // @ApiOkResponse({
-    //   type: SocialDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: SocialDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
       type: ResultObjectDTO,
       description: 'Social not found',
@@ -212,18 +212,18 @@ import {
   
     @ApiOperation({ summary: 'Update Social by ID' })
     @ApiParam({ name: 'id', description: 'Social id', required: true })
-    // @ApiBody({ type: PostSocialDto })
+    @ApiBody({ type: PostSocialDto })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //   type: SocialDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: SocialDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
       type: ResultObjectDTO,
       description: 'Social not found',
     })
     @Put('/:id')
-    // @UseInterceptors(new PrepareObjectBody(PostSocialDto))
+    @UseInterceptors(new PrepareObjectBody(PostSocialDto))
     public async update(
       @Res() res,
       @Param() params,

@@ -25,13 +25,13 @@ import {
 import ResultObjectDTO from 'src/app/dto/resultobject.dto';
 import { ToolsGenerateResponse } from 'src/app/tools/toolsgenerateresponse';
 import { MessageTypes } from 'src/app/tools/messagetypes';
-// import { PermissionDto } from '../dto/permission.dto';
+import { PermissionDto } from 'src/user/dto/permission.dto';
 import { PermissionService } from '../services/permission.service';
 import ResultListDTO from 'src/app/dto/resultlist.dto';
 import { ParseParamsList } from 'src/app/interceptors/parseparamslist.interceptor';
-// import { PostPermissionDto } from '../dto/postpermission.dto';
+import { PostPermissionDto } from 'src/user/dto/postpermission.dto';
 import { PrepareObjectBody } from 'src/app/interceptors/prepareobjectbody.interceptor';
-// import { PutPermissionDto } from '../dto/putpermission.dto';
+import { PutPermissionDto } from 'src/user/dto/putpermission.dto';
 import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
 
 @ApiTags('permission')
@@ -41,14 +41,14 @@ export class PermissionController {
     constructor(private permissionService: PermissionService) { }
 
     @ApiOperation({ summary: 'Add Permission' })
-    // @ApiBody({ type: PostPermissionDto })
+    @ApiBody({ type: PostPermissionDto })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //     type: PermissionDto,
-    //     description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+        type: PermissionDto,
+        description: 'Special obj in type: ResultObjectDTO',
+    })
     @Post('/')
-    // @UseInterceptors(new PrepareObjectBody(PostPermissionDto))
+    @UseInterceptors(new PrepareObjectBody(PostPermissionDto))
     public async add(@Body() body, @Res() res): Promise<ResultObjectDTO> {
         const obj = await this.permissionService.save(body);
         if (obj == null) {
@@ -148,10 +148,10 @@ export class PermissionController {
 
     @ApiOperation({ summary: 'Get Permission by ID' })
     @ApiParam({ name: 'id', description: 'Permission id', required: true })
-    // @ApiOkResponse({
-    //     type: PermissionDto,
-    //     description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+        type: PermissionDto,
+        description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
         type: ResultObjectDTO,
         description: 'Permission not found',
@@ -206,18 +206,18 @@ export class PermissionController {
     
     @ApiOperation({ summary: 'Update Permission by ID' })
     @ApiParam({ name: 'id', description: 'Permission id', required: true })
-    // @ApiBody({ type: PutPermissionDto })
+    @ApiBody({ type: PutPermissionDto })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //     type: PermissionDto,
-    //     description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+        type: PermissionDto,
+        description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
         type: ResultObjectDTO,
         description: 'Permission not found',
     })
     @Put('/:id')
-    // @UseInterceptors(new PrepareObjectBody(PutPermissionDto))
+    @UseInterceptors(new PrepareObjectBody(PutPermissionDto))
     public async update(
         @Res() res,
         @Param() params,

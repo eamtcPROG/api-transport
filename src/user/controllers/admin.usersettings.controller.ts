@@ -25,11 +25,11 @@ import {
   import ResultObjectDTO from 'src/app/dto/resultobject.dto';
   import { ToolsGenerateResponse } from 'src/app/tools/toolsgenerateresponse';
   import { MessageTypes } from 'src/app/tools/messagetypes';
-  // import { UserSettingsDto } from '../dto/usersettings.dto';
+  import { UserSettingsDto } from 'src/user/dto/usersettings.dto';
   import { UserSettingsService } from '../services/usersettings.service';
   import ResultListDTO from 'src/app/dto/resultlist.dto';
   import { ParseParamsList } from 'src/app/interceptors/parseparamslist.interceptor';
-  // import { PostUserSettingsDto } from '../dto/postusersettings.dto';
+  import { PostUserSettingsDto } from 'src/user/dto/postusersettings.dto';
   import { PrepareObjectBody } from 'src/app/interceptors/prepareobjectbody.interceptor';
   
   import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
@@ -42,14 +42,14 @@ import { CommonTools } from 'src/app/tools/commontools';
     constructor(private userSettingsService: UserSettingsService) {}
   
     @ApiOperation({ summary: 'Add UserSettings' })
-    // @ApiBody({ type: PostUserSettingsDto })
+    @ApiBody({ type: PostUserSettingsDto })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //   type: UserSettingsDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: UserSettingsDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @Post('/')
-    // @UseInterceptors(new PrepareObjectBody(PostUserSettingsDto))
+    @UseInterceptors(new PrepareObjectBody(PostUserSettingsDto))
     public async add(@Body() body, @Res() res): Promise<ResultObjectDTO> {
       const obj = await this.userSettingsService.save(body);
       if (obj == null) {
@@ -122,10 +122,10 @@ import { CommonTools } from 'src/app/tools/commontools';
   
     @ApiOperation({ summary: 'Get UserSettings by ID' })
     @ApiParam({ name: 'id', description: 'UserSettings id', required: true })
-    // @ApiOkResponse({
-    //   type: UserSettingsDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: UserSettingsDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
       type: ResultObjectDTO,
       description: 'UserSettings not found',
@@ -150,10 +150,10 @@ import { CommonTools } from 'src/app/tools/commontools';
 
     @ApiOperation({ summary: 'Get UserSettings by user ID' })
     @ApiParam({ name: 'id', description: 'UserSettings id', required: true })
-    // @ApiOkResponse({
-    //   type: UserSettingsDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: UserSettingsDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
       type: ResultObjectDTO,
       description: 'UserSettings not found',
@@ -207,18 +207,18 @@ import { CommonTools } from 'src/app/tools/commontools';
   
     @ApiOperation({ summary: 'Update UserSettings by ID' })
     @ApiParam({ name: 'id', description: 'UserSettings id', required: true })
-    // @ApiBody({ type: PostUserSettingsDto })
+    @ApiBody({ type: PostUserSettingsDto })
     @ApiConsumes('application/json')
-    // @ApiOkResponse({
-    //   type: UserSettingsDto,
-    //   description: 'Special obj in type: ResultObjectDTO',
-    // })
+    @ApiOkResponse({
+      type: UserSettingsDto,
+      description: 'Special obj in type: ResultObjectDTO',
+    })
     @ApiNotFoundResponse({
       type: ResultObjectDTO,
       description: 'UserSettings not found',
     })
     @Put('/:id')
-    // @UseInterceptors(new PrepareObjectBody(PostUserSettingsDto))
+    @UseInterceptors(new PrepareObjectBody(PostUserSettingsDto))
     public async update(
       @Res() res,
       @Param() params,

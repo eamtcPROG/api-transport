@@ -4,7 +4,7 @@ import { MessageDto } from './message.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import RequestListDTO from './requestlist.dto';
 import ResultMetaDTO from 'src/app/dto/resultmeta.dto';
-// import { RoleDto } from 'src/user/dto/role.dto'
+import { RoleDto } from 'src/user/dto/role.dto'
 @Injectable()
 export default class ResultListDTO {
   @ApiProperty({
@@ -52,9 +52,9 @@ export default class ResultListDTO {
     type: ResultMetaDTO
   })
   meta?: ResultMetaDTO;
-  // @ApiProperty({
-  //   description: 'Role dto',
-  //   type: RoleDto
-  // })
-  // roles: RoleDto[];
+  @ApiProperty({
+    description: 'Role dto',
+    type: RoleDto
+  })
+  roles: RoleDto[];
 }

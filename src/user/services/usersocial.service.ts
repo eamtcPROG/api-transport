@@ -2,10 +2,10 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserSocialRepository } from '../repositories/usersocial.repository';
 
-// import { UserSocialDto } from '../dto/usersocial.dto';
+import { UserSocialDto } from 'src/user/dto/usersocial.dto';
 import { UserSocial } from '../schemas/usersocial.schema';
-// import { PostUserSocialDto } from '../dto/postusersocial.dto';
-// import { PutUserSocialDto } from '../dto/putusersocial.dto';
+import { PostUserSocialDto } from 'src/user/dto/postusersocial.dto';
+import { PutUserSocialDto } from 'src/user/dto/putusersocial.dto';
 import { SocialSignInDto } from 'src/auth/dto/socialsignin.dto'
 
 import RequestListDTO from 'src/app/dto/requestlist.dto';
@@ -36,8 +36,8 @@ export class UserSocialService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new UserSocialDto();
-let rez:any;
+    const rez = new UserSocialDto();
+
     rez.id = this.userSocialRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('iduser')) rez.iduser = obj.iduser;
     if (obj.hasOwnProperty('socialidentifier')) rez.socialidentifier = obj.socialidentifier;
@@ -49,8 +49,8 @@ let rez:any;
   }
 
  async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: UserSocialDto = new UserSocialDto();
-    let obj;
+    const obj: UserSocialDto = new UserSocialDto();
+    
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('iduser')) obj.iduser = postObj.iduser;
     if (postObj.hasOwnProperty('socialidentifier'))

@@ -1,10 +1,10 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserRoleRepository } from '../repositories/userrole.repository';
-// import { UserRoleDto } from '../dto/userrole.dto';
+import { UserRoleDto } from 'src/user/dto/userrole.dto';
 import { UserRole } from '../schemas/userrole.schema';
 import RequestListDTO from 'src/app/dto/requestlist.dto';
-// import { PostUserRoleDto } from 'src/user/dto/postuserrole.dto';
+import { PostUserRoleDto } from 'src/user/dto/postuserrole.dto';
 import ResultDeleteDTO from 'src/app/dto/resultdelete.dto';
 import { CommonTools } from 'src/app/tools/commontools';
 
@@ -33,8 +33,8 @@ export class UserRoleService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new UserRoleDto();
-let rez:any;
+    const rez = new UserRoleDto();
+
     rez.id = this.userRoleRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('iduser')) rez.iduser = this.userRoleRepository.getParsedIdStr(obj.iduser);
     if (obj.hasOwnProperty('idrole')) rez.idrole = this.userRoleRepository.getParsedIdStr(obj.idrole);
@@ -49,8 +49,8 @@ let rez:any;
   }
 
   async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: UserRoleDto = new UserRoleDto();
-    let obj;
+    const obj: UserRoleDto = new UserRoleDto();
+    
 
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('iduser')) obj.iduser = postObj.iduser;
@@ -61,8 +61,8 @@ let rez:any;
   // UNVERIFIED TEMPORARILY
 
   async setDefaultRole(id: string): Promise<any> {
-    // const postObj: PostUserRoleDto = new PostUserRoleDto();
-    let postObj;
+    const postObj: PostUserRoleDto = new PostUserRoleDto();
+    
     postObj.idrole = this.configService.get('user.roles.default_sign_up_role');
     postObj.iduser = id;
     const obj = await this.save(postObj);
@@ -72,8 +72,8 @@ let rez:any;
   }
 
   async setTeacherRole(id: string): Promise<any> {
-    let postObj;
-    // const postObj: PostUserRoleDto = new PostUserRoleDto();
+   
+    const postObj: PostUserRoleDto = new PostUserRoleDto();
     postObj.idrole = this.configService.get('user.roles.default_teacher');
     postObj.iduser = id;
     const obj = await this.save(postObj);
@@ -94,8 +94,8 @@ let rez:any;
 
     rLDTO.filters.push(tf);
 
-    // const objects = await this.getAll(rLDTO) as UserRoleDto[];
-    const objects = await this.getAll(rLDTO) as any[];
+    const objects = await this.getAll(rLDTO) as UserRoleDto[];
+    
     if (objects == null) return null;
     const roles = objects.map((item) => item.idrole);
     return roles;

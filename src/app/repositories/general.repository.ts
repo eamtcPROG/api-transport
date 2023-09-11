@@ -10,7 +10,7 @@ import RequestFilterDTO from '../dto/requestfilter.dto';
 import IRepository from '../interfaces/irepository.interface';
 import { ConfigService } from '@nestjs/config';
 import { CommonTools } from '../tools/commontools';
-// import { AttachmentRepository } from 'src/attachment/repositories/attachment.repository';
+import { AttachmentRepository } from 'src/attachment/attachment.repository';
 import { constants } from 'crypto';
 import { Status } from '../tools/status';
 

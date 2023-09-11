@@ -25,13 +25,13 @@ import {
 import ResultObjectDTO from 'src/app/dto/resultobject.dto';
 import { ToolsGenerateResponse } from 'src/app/tools/toolsgenerateresponse';
 import { MessageTypes } from 'src/app/tools/messagetypes';
-// import { RoleDto } from '../dto/role.dto';
+import { RoleDto } from 'src/user/dto/role.dto';
 import { RoleService } from '../services/role.service';
 import ResultListDTO from 'src/app/dto/resultlist.dto';
 import { ParseParamsList } from 'src/app/interceptors/parseparamslist.interceptor';
-// import { PostRoleDto } from '../dto/postrole.dto';
+import { PostRoleDto } from 'src/user/dto/postrole.dto';
 import { PrepareObjectBody } from 'src/app/interceptors/prepareobjectbody.interceptor';
-// import { PutRoleDto } from '../dto/putrole.dto';
+import { PutRoleDto } from 'src/user/dto/putrole.dto';
 import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
 
 @ApiTags('role')
@@ -41,14 +41,14 @@ export class RoleController {
   constructor(private roleService: RoleService) { }
 
   @ApiOperation({ summary: 'Add Role' })
-  // @ApiBody({ type: PostRoleDto })
+  @ApiBody({ type: PostRoleDto })
   @ApiConsumes('application/json')
-  // @ApiOkResponse({
-  //   type: RoleDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: RoleDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @Post('/')
-  // @UseInterceptors(new PrepareObjectBody(PostRoleDto))
+  @UseInterceptors(new PrepareObjectBody(PostRoleDto))
   public async add(@Body() body, @Res() res): Promise<ResultObjectDTO> {
     const obj = await this.roleService.save(body);
     if (obj == null) {
@@ -120,10 +120,10 @@ export class RoleController {
 
   @ApiOperation({ summary: 'Get Role by ID' })
   @ApiParam({ name: 'id', description: 'Role id', required: true })
-  // @ApiOkResponse({
-  //   type: RoleDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: RoleDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @ApiNotFoundResponse({
     type: ResultObjectDTO,
     description: 'Role not found',
@@ -180,18 +180,18 @@ export class RoleController {
 
   @ApiOperation({ summary: 'Update Role by ID' })
   @ApiParam({ name: 'id', description: 'Role id', required: true })
-  // @ApiBody({ type: PutRoleDto })
+  @ApiBody({ type: PutRoleDto })
   @ApiConsumes('application/json')
-  // @ApiOkResponse({
-  //   type: RoleDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: RoleDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @ApiNotFoundResponse({
     type: ResultObjectDTO,
     description: 'Role not found',
   })
   @Put('/:id')
-  // @UseInterceptors(new PrepareObjectBody(PutRoleDto))
+  @UseInterceptors(new PrepareObjectBody(PutRoleDto))
   public async update(
     @Res() res,
     @Param() params,

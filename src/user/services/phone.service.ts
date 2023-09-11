@@ -1,10 +1,10 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PhoneRepository } from '../repositories/phone.repository';
-// import { PhoneDto } from '../dto/phone.dto';
+import { PhoneDto } from 'src/user/dto/phone.dto';
 import { Phone } from '../schemas/phone.schema';
 import RequestListDTO from 'src/app/dto/requestlist.dto';
-// import { PostPhoneDto } from '../dto/postphone.dto';
+import { PostPhoneDto } from 'src/user/dto/postphone.dto';
 import ResultDeleteDTO from 'src/app/dto/resultdelete.dto';
 import { CommonTools } from 'src/app/tools/commontools';
 import RequestFilterDTO from 'src/app/dto/requestfilter.dto';
@@ -32,8 +32,8 @@ export class PhoneService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new PhoneDto();
-    let rez
+    const rez = new PhoneDto();
+    // let rez
 
     rez.id = this.phoneRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('phonenumber')) rez.phonenumber = obj.phonenumber;
@@ -48,8 +48,8 @@ export class PhoneService
   }
 
  async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: PhoneDto = new PhoneDto();
-    let obj;
+    const obj: PhoneDto = new PhoneDto();
+    // let obj;
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('phonenumber')) obj.phonenumber = postObj.phonenumber;
     if (postObj.hasOwnProperty('countrycode')) obj.countrycode = postObj.countrycode;

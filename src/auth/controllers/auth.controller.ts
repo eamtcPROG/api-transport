@@ -24,10 +24,10 @@ import { SocialSignInDto } from '../dto/socialsignin.dto';
 import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
 import { SignInHashDto } from '../dto/signinhash.dto';
 import { AuthGuard } from '@nestjs/passport';
-// import { RegisterUserFirstStepDto } from 'src/user/dto/registeruserfirststep.dto';
+import { RegisterUserFirstStepDto } from 'src/user/dto/registeruserfirststep.dto';
 import ResultObjectDTO from 'src/app/dto/resultobject.dto';
 import { MessageTypes } from 'src/app/tools/messagetypes';
-// import { BecomeTeacherDto } from 'src/user/dto/becometeacher.dto';
+import { BecomeTeacherDto } from 'src/user/dto/becometeacher.dto';
 
 @ApiTags('auth')
 @Controller('auth')

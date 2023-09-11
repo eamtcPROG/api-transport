@@ -1,10 +1,10 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SocialRepository } from '../repositories/social.repository';
-// import { SocialDto } from '../dto/social.dto';
+import { SocialDto } from 'src/user/dto/social.dto';
 import { Social } from '../schemas/social.schema';
 import RequestListDTO from 'src/app/dto/requestlist.dto';
-// import { PostSocialDto } from '../dto/postsocial.dto';
+import { PostSocialDto } from 'src/user/dto/postsocial.dto';
 import ResultDeleteDTO from 'src/app/dto/resultdelete.dto';
 import { CommonTools } from 'src/app/tools/commontools';
 import RequestFilterDTO from 'src/app/dto/requestfilter.dto';
@@ -31,8 +31,8 @@ export class SocialService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new SocialDto();
-    let rez
+    const rez = new SocialDto();
+    // let rez
     rez.id = this.socialRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('link')) rez.link = obj.link;
     if (obj.hasOwnProperty('idtypesocial')) rez.idtypesocial = this.socialRepository.getParsedIdStr(obj.idtypesocial);
@@ -42,8 +42,8 @@ export class SocialService
   }
 
   async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: SocialDto = new SocialDto();
-    let obj
+    const obj: SocialDto = new SocialDto();
+    // let obj
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('link')) obj.link = postObj.link;
     if (postObj.hasOwnProperty('idtypesocial')) obj.idtypesocial = postObj.idtypesocial;
@@ -52,8 +52,8 @@ export class SocialService
   }
 
   async prepareToAddUserSocial(obj: any): Promise<any | null> {
-    // const rez = new SocialDto();
-    let rez
+    const rez = new SocialDto();
+    // let rez
     if (obj.hasOwnProperty('id') && obj.id) rez.id = obj.id;
     if (obj.hasOwnProperty('link') && obj.link) rez.link = obj.link;
     if (obj.hasOwnProperty('idtypesocial') && obj.idtypesocial) rez.idtypesocial = obj.idtypesocial;

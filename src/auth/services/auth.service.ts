@@ -1,9 +1,9 @@
 import { ExecutionContext, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
-// import { PostUserDto } from 'src/user/dto/postuser.dto';
-// import { PutUserDto } from 'src/user/dto/putuser.dto';
-// import { UserDto } from 'src/user/dto/user.dto';
+import { PostUserDto } from 'src/user/dto/postuser.dto';
+import { PutUserDto } from 'src/user/dto/putuser.dto';
+import { UserDto } from 'src/user/dto/user.dto';
 
 import { UserRepository } from 'src/user/repositories/user.repository';
 import { UserService } from 'src/user/services/user.service';
@@ -25,8 +25,8 @@ import { SocialSignInDto } from '../dto/socialsignin.dto';
 import { UserRoleService } from 'src/user/services/userrole.service';
 import { UserSettingsService } from 'src/user/services/usersettings.service';
 import Idto from 'src/app/interfaces/idto.interface';
-// import { RoleDto } from 'src/user/dto/role.dto';
-// import { UserRoleDto } from 'src/user/dto/userrole.dto';
+import { RoleDto } from 'src/user/dto/role.dto';
+import { UserRoleDto } from 'src/user/dto/userrole.dto';
 
 @Injectable()
 export class AuthService {
@@ -44,20 +44,9 @@ export class AuthService {
 
   ) {}
 
-  // async processPassword(
-  //   obj: UserDto | PostUserDto | PutUserDto,
-  // ): Promise<UserDto | PostUserDto | PutUserDto> {
-  //   if (obj.password == undefined) return obj;
-  //   if (obj.password == null) return obj;
-  //   if (obj.password == '-1') return obj;
-
-  //   obj.password = await this.hashPass(obj.password);
-
-  //   return obj;
-  // }
   async processPassword(
-    obj: any
-  ): Promise<any> {
+    obj: UserDto | PostUserDto | PutUserDto,
+  ): Promise<UserDto | PostUserDto | PutUserDto> {
     if (obj.password == undefined) return obj;
     if (obj.password == null) return obj;
     if (obj.password == '-1') return obj;
@@ -66,6 +55,7 @@ export class AuthService {
 
     return obj;
   }
+  
   async hashPass(pass: string): Promise<string> {
     const salt: string = await bcrypt.genSalt();
     const hash: string = await bcrypt.hash(pass, salt);
@@ -100,29 +90,9 @@ export class AuthService {
     return await this.userRepository.findAll(rLDTO);
   }
 
-  // protected async singIn_checkPassword(
-  //   rez: ResultSignInDTO,
-  //   obj: UserDto,
-  //   req: SignInDto,
-  // ): Promise<ResultSignInDTO> {
-  //   const isCorrectPassword = await this.isCorectPass(
-  //     req.password,
-  //     obj.password,
-  //   );
-  //   if (!isCorrectPassword) {
-  //     rez.err = true;
-  //     rez.messages = MessageTypes.processMessage(
-  //       MessageTypes.USER_PASSWORD_NOTCORRECT,
-  //     );
-  //     return rez;
-  //   }
-
-  //   return rez;
-  // }
-
   protected async singIn_checkPassword(
     rez: ResultSignInDTO,
-    obj: any,
+    obj: UserDto,
     req: SignInDto,
   ): Promise<ResultSignInDTO> {
     const isCorrectPassword = await this.isCorectPass(
@@ -139,6 +109,8 @@ export class AuthService {
 
     return rez;
   }
+
+  
 
   async singIn_checkUser(
     rez: any,

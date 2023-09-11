@@ -24,17 +24,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import ResultObjectDTO from 'src/app/dto/resultobject.dto';
-// import { UserDto } from '../dto/user.dto';
+import { UserDto } from 'src/user/dto/user.dto';
 import { ToolsGenerateResponse } from 'src/app/tools/toolsgenerateresponse';
 import { MessageTypes } from 'src/app/tools/messagetypes';
 import { PrepareObjectBody } from 'src/app/interceptors/prepareobjectbody.interceptor';
-// import { ModifyPasswordAdminDto } from 'src/user/dto/modifypasswordadmin.dto'
+import { ModifyPasswordAdminDto } from 'src/user/dto/modifypasswordadmin.dto'
 import { UserService } from '../services/user.service';
 import ResultListDTO from 'src/app/dto/resultlist.dto';
 import { ParseParamsList } from 'src/app/interceptors/parseparamslist.interceptor';
 import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
-// import { CreateUserAdminDto } from '../dto/createuseradmin.dto';
-// import { UpdateUserAdminDto } from '../dto/updateuseradmin.dto';
+import { CreateUserAdminDto } from 'src/user/dto/createuseradmin.dto';
+import { UpdateUserAdminDto } from 'src/user/dto/updateuseradmin.dto';
 import RequestPopulateDTO from 'src/app/dto/requestpopulate.dto';
 import { CommonTools } from 'src/app/tools/commontools';
 
@@ -103,10 +103,10 @@ export class AdminUserController {
 
   @ApiOperation({ summary: 'Get User by ID' })
   @ApiParam({ name: 'id', description: 'User id', required: true })
-  // @ApiOkResponse({
-  //   type: UserDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: UserDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @ApiNotFoundResponse({
     type: ResultObjectDTO,
     description: 'User not found',
@@ -140,7 +140,7 @@ export class AdminUserController {
 
   @ApiOperation({ summary: 'Modify password by admin' })
   @ApiConsumes('application/json')
-  // @ApiBody({ type: ModifyPasswordAdminDto })
+  @ApiBody({ type: ModifyPasswordAdminDto })
   @ApiOkResponse({
     type: ResultObjectDTO,
     description: 'Special obj in type: ResultObjectDTO',
@@ -151,7 +151,7 @@ export class AdminUserController {
   })
   @ApiParam({ name: 'id', description: 'User id', required: true })
   @Patch('/password/:id')
-  // @UseInterceptors(new PrepareObjectBody(ModifyPasswordAdminDto))
+  @UseInterceptors(new PrepareObjectBody(ModifyPasswordAdminDto))
   public async modifyPassword(
     @Res() res,
     @Body() body,
@@ -172,7 +172,7 @@ export class AdminUserController {
 
   @ApiOperation({ summary: 'Add user by admin' })
   @ApiConsumes('application/json')
-  // @ApiBody({ type: CreateUserAdminDto })
+  @ApiBody({ type: CreateUserAdminDto })
   @ApiOkResponse({
     type: ResultObjectDTO,
     description: 'Special obj in type: ResultObjectDTO',
@@ -182,7 +182,7 @@ export class AdminUserController {
     description: 'User not found',
   })
   @Post('/')
-  // @UseInterceptors(new PrepareObjectBody(CreateUserAdminDto))
+  @UseInterceptors(new PrepareObjectBody(CreateUserAdminDto))
   public async add(
     @Res() res,
     @Body() body,
@@ -232,18 +232,18 @@ export class AdminUserController {
 
   @ApiOperation({ summary: 'Update user by admin by ID' })
   @ApiParam({ name: 'id', description: 'User id', required: true })
-  // @ApiBody({ type: UserDto })
+  @ApiBody({ type: UserDto })
   @ApiConsumes('application/json')
-  // @ApiOkResponse({
-  //   type: UserDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: UserDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @ApiNotFoundResponse({
     type: ResultObjectDTO,
     description: 'User not found',
   })
   @Put('/:id')
-  // @UseInterceptors(new PrepareObjectBody(UserDto))
+  @UseInterceptors(new PrepareObjectBody(UserDto))
   public async update(
     @Res() res,
     @Param() params,

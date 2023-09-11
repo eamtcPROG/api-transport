@@ -1,13 +1,13 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TestInfoRepository } from '../repositories/testinfo.repository';
-// import { TestInfoDto } from '../dto/testinfo.dto';
+import { TestInfoDto } from 'src/user/dto/testinfo.dto';
 import { TestInfo } from '../schemas/testinfo.schema';
 import RequestListDTO from 'src/app/dto/requestlist.dto';
-// import { PostTestInfoDto } from '../dto/posttestinfo.dto';
+import { PostTestInfoDto } from 'src/user/dto/posttestinfo.dto';
 import ResultDeleteDTO from 'src/app/dto/resultdelete.dto';
 import { CommonTools } from 'src/app/tools/commontools';
-// import { PutTestInfoDto } from '../dto/puttestinfo.dto';
+import { PutTestInfoDto } from 'src/user/dto/puttestinfo.dto';
 import IService from 'src/app/interfaces/iservice.interface';
 import { GeneralService } from 'src/app/services/general.service';
 import Idto from 'src/app/interfaces/idto.interface';
@@ -31,8 +31,8 @@ export class TestInfoService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new TestInfoDto();
-let rez
+    const rez = new TestInfoDto();
+// let rez
     rez.id = this.testInfoRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('name')) rez.name = obj.name;
     if (obj.hasOwnProperty('info')) rez.info = obj.info;
@@ -41,8 +41,8 @@ let rez
   }
 
  async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: TestInfoDto = new TestInfoDto();
-    let obj;
+    const obj: TestInfoDto = new TestInfoDto();
+    // let obj;
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('name')) obj.name = postObj.name;
     if (postObj.hasOwnProperty('info')) obj.info = postObj.info;
