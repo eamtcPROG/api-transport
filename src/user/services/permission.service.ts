@@ -1,19 +1,19 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PermissionRepository } from '../repositories/permission.repository';
-// import { PermissionDto } from '../dto/permission.dto';
+import { PermissionDto } from 'src/user/dto/permission.dto';
 import { Permission } from '../schemas/permission.schema';
 import RequestListDTO from 'src/app/dto/requestlist.dto';
-// import { PostPermissionDto } from '../dto/postpermission.dto';
-// import { PermissionWithRoleDto ,PermissionsWithRoleDto} from '../dto/permissionwithrole.dto';
+import { PostPermissionDto } from 'src/user/dto/postpermission.dto';
+import { PermissionWithRoleDto ,PermissionsWithRoleDto} from 'src/user/dto/permissionwithrole.dto';
 import ResultDeleteDTO from 'src/app/dto/resultdelete.dto';
 import { CommonTools } from 'src/app/tools/commontools';
-// import { PutPermissionDto } from '../dto/putpermission.dto';
+import { PutPermissionDto } from 'src/user/dto/putpermission.dto';
 import RequestFilterDTO from 'src/app/dto/requestfilter.dto';
 import { ToolsDate } from 'src/app/tools/tooldate';
 import * as crypto from 'crypto';
 import { RoleService } from './role.service';
-// import { RoleDto } from '../dto/role.dto';
+import { RoleDto } from 'src/user/dto/role.dto';
 import IService from 'src/app/interfaces/iservice.interface';
 import { GeneralService } from 'src/app/services/general.service';
 import Idto from 'src/app/interfaces/idto.interface';
@@ -39,8 +39,8 @@ export class PermissionService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new PermissionDto();
-    let rez
+    const rez = new PermissionDto();
+    // let rez
     rez.id = this.permissionRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('name')) rez.name = obj.name;
     if (obj.hasOwnProperty('description')) rez.description = obj.description;
@@ -51,8 +51,8 @@ export class PermissionService
   }
 
  async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: PermissionDto = new PermissionDto();
-    let obj
+    const obj: PermissionDto = new PermissionDto();
+    // let obj
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('name')) obj.name = postObj.name;
     if (postObj.hasOwnProperty('description')) obj.description = postObj.description;
@@ -94,15 +94,15 @@ export class PermissionService
     return { hash: hash };
   }
 
-  // async getPermissionByName(name: string): Promise<PermissionDto> {
-  //   const obj = await this.getByField('name', name) as PermissionDto;
-  //   if(obj == null) return null;
-  //   return obj;
-  // }
-
-  async getPermissionByName(name: string): Promise<any> {
-    const obj = await this.getByField('name', name) as any;
+  async getPermissionByName(name: string): Promise<PermissionDto> {
+    const obj = await this.getByField('name', name) as PermissionDto;
     if(obj == null) return null;
     return obj;
   }
+
+  // async getPermissionByName(name: string): Promise<any> {
+  //   const obj = await this.getByField('name', name) as any;
+  //   if(obj == null) return null;
+  //   return obj;
+  // }
 }

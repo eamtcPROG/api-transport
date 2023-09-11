@@ -1,10 +1,10 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserSettingsRepository } from '../repositories/usersettings.repository';
-// import { UserSettingsDto } from '../dto/usersettings.dto';
+import { UserSettingsDto } from 'src/user/dto/usersettings.dto';
 import { UserSettings } from '../schemas/usersettings.schema';
 import RequestListDTO from 'src/app/dto/requestlist.dto';
-// import { PostUserSettingsDto } from '../dto/postusersettings.dto';
+import { PostUserSettingsDto } from 'src/user/dto/postusersettings.dto';
 import ResultDeleteDTO from 'src/app/dto/resultdelete.dto';
 import { CommonTools } from 'src/app/tools/commontools';
 import RequestFilterDTO from 'src/app/dto/requestfilter.dto';
@@ -30,8 +30,8 @@ export class UserSettingsService
   }
 
   toDto(obj: any): Idto {
-    // const rez = new UserSettingsDto();
-let rez;
+    const rez = new UserSettingsDto();
+
     rez.id = this.userSettingsRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('iduser')) rez.iduser = this.userSettingsRepository.getParsedIdStr(obj.iduser);
     if (obj.hasOwnProperty('name')) rez.name = obj.name;
@@ -53,8 +53,8 @@ let rez;
   }
 
  async parseForSave(postObj: any): Promise<Idto> {
-    // const obj: UserSettingsDto = new UserSettingsDto();
-    let obj;
+    const obj: UserSettingsDto = new UserSettingsDto();
+    
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('iduser') && postObj.iduser) obj.iduser = postObj.iduser;
     if (postObj.hasOwnProperty('name')) obj.name = postObj.name;
@@ -69,15 +69,11 @@ let rez;
     return obj;
   }
 
-  // async getUserSettingsByIdUser(iduser: string): Promise<UserSettingsDto> {
-  //   const obj = await this.getByField('iduser', iduser) as UserSettingsDto;
-  //   if (obj == null) return null;
-  //   return obj;
-  // }
-
-  async getUserSettingsByIdUser(iduser: string): Promise<any> {
-    const obj = await this.getByField('iduser', iduser) as any;
+  async getUserSettingsByIdUser(iduser: string): Promise<UserSettingsDto> {
+    const obj = await this.getByField('iduser', iduser) as UserSettingsDto;
     if (obj == null) return null;
     return obj;
   }
+
+  
 }

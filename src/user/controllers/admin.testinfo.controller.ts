@@ -25,13 +25,13 @@ import {
 import ResultObjectDTO from 'src/app/dto/resultobject.dto';
 import { ToolsGenerateResponse } from 'src/app/tools/toolsgenerateresponse';
 import { MessageTypes } from 'src/app/tools/messagetypes';
-// import { TestInfoDto } from '../dto/testinfo.dto';
+import { TestInfoDto } from 'src/user/dto/testinfo.dto';
 import { TestInfoService } from '../services/testinfo.service';
 import ResultListDTO from 'src/app/dto/resultlist.dto';
 import { ParseParamsList } from 'src/app/interceptors/parseparamslist.interceptor';
-// import { PostTestInfoDto } from '../dto/posttestinfo.dto';
+import { PostTestInfoDto } from 'src/user/dto/posttestinfo.dto';
 import { PrepareObjectBody } from 'src/app/interceptors/prepareobjectbody.interceptor';
-// import { PutTestInfoDto } from '../dto/puttestinfo.dto';
+import { PutTestInfoDto } from 'src/user/dto/puttestinfo.dto';
 import { GeneralAdminGuard } from 'src/app/guards/generaladmin.guard';
 
 @ApiTags('admin/testinfo')
@@ -41,14 +41,14 @@ export class AdminTestInfoController {
   constructor(private testInfoService: TestInfoService) { }
 
   @ApiOperation({ summary: 'Add TestInfo' })
-  // @ApiBody({ type: PostTestInfoDto })
+  @ApiBody({ type: PostTestInfoDto })
   @ApiConsumes('application/json')
-  // @ApiOkResponse({
-  //   type: TestInfoDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: TestInfoDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @Post('/')
-  // @UseInterceptors(new PrepareObjectBody(PostTestInfoDto))
+  @UseInterceptors(new PrepareObjectBody(PostTestInfoDto))
   public async add(@Body() body, @Res() res): Promise<ResultObjectDTO> {
     const obj = await this.testInfoService.save(body);
     if (obj == null) {
@@ -120,10 +120,10 @@ export class AdminTestInfoController {
 
   @ApiOperation({ summary: 'Get TestInfo by ID' })
   @ApiParam({ name: 'id', description: 'TestInfo id', required: true })
-  // @ApiOkResponse({
-  //   type: TestInfoDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: TestInfoDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @ApiNotFoundResponse({
     type: ResultObjectDTO,
     description: 'TestInfo not found',
@@ -173,18 +173,18 @@ export class AdminTestInfoController {
 
   @ApiOperation({ summary: 'Update TestInfo by ID' })
   @ApiParam({ name: 'id', description: 'TestInfo id', required: true })
-  // @ApiBody({ type: PutTestInfoDto })
+  @ApiBody({ type: PutTestInfoDto })
   @ApiConsumes('application/json')
-  // @ApiOkResponse({
-  //   type: TestInfoDto,
-  //   description: 'Special obj in type: ResultObjectDTO',
-  // })
+  @ApiOkResponse({
+    type: TestInfoDto,
+    description: 'Special obj in type: ResultObjectDTO',
+  })
   @ApiNotFoundResponse({
     type: ResultObjectDTO,
     description: 'TestInfo not found',
   })
   @Put('/:id')
-  // @UseInterceptors(new PrepareObjectBody(PutTestInfoDto))
+  @UseInterceptors(new PrepareObjectBody(PutTestInfoDto))
   public async update(
     @Res() res,
     @Param() params,

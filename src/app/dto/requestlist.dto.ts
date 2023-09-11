@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import RequestFilterDTO from './requestfilter.dto';
 import RequestSortCriteriaDTO from './requestsortcriteria.dto';
 import RequestPopulateDTO from './requestpopulate.dto';
-// import { RoleDto } from 'src/user/dto/role.dto';
+import { RoleDto } from 'src/user/dto/role.dto';
 import RequestCriteriaDTO from 'src/app/dto/requestcriteria.dto'
 
 @Injectable()
@@ -58,12 +58,12 @@ export default class RequestListDTO {
     required: false,
   })
   populate?: RequestPopulateDTO;
-  // @ApiProperty({
-  //   description: 'Roles',
-  //   type: Array<RoleDto>,
-  //   required: false,
-  // })
-  // roles?:RoleDto[]
+  @ApiProperty({
+    description: 'Roles',
+    type: Array<RoleDto>,
+    required: false,
+  })
+  roles?:RoleDto[]
 
   addToSortCriteria(data: RequestSortCriteriaDTO | RequestSortCriteriaDTO[]) {
     if (this.sortcriteria == undefined) this.sortcriteria = [];
