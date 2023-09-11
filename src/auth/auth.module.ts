@@ -29,7 +29,7 @@ import { CommonTools } from 'src/app/tools/commontools';
     AccessTokenStrategy,
     JwtService,
     CommonTools,
-    // GoogleStrategy,
+    GoogleStrategy,
   ],
   exports: [AuthService],
 })

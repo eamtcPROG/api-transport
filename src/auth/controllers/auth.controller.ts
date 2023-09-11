@@ -7,7 +7,7 @@ import {
   Post,
   Req,
   Res,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { SignInDto } from '../dto/signin.dto';
 import ResultSignInDTO from '../dto/resultsignin.dto';
@@ -31,7 +31,7 @@ import { MessageTypes } from 'src/app/tools/messagetypes';
 
 @ApiTags('auth')
 @Controller('auth')
-@UseGuards(GeneralAdminGuard)
+// @UseGuards(GeneralAdminGuard)
 export class AuthController {
   constructor(
     private authService: AuthService,
@@ -202,7 +202,7 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth() { }
+  async googleAuth(@Req() req) { }
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
@@ -211,5 +211,6 @@ export class AuthController {
     // Handle the redirection after Google authentication
     // const user = req.user; // User information from GoogleStrategy validate function
     // Implement your logic to create or update the user in your system
+    return this.authService.googleLogin(req)
   }
 }
