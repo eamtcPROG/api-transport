@@ -17,6 +17,7 @@ export class PrepareObjectBody<T> implements NestInterceptor {
 
         const request = context.switchToHttp().getRequest();
         let body = request.body;
+        console.log('body',body)
         if (typeof body !== 'object') {
             let obj = {};
             try {
@@ -28,6 +29,7 @@ export class PrepareObjectBody<T> implements NestInterceptor {
         }
         let instance = new this.dto();
         instance = body;
+        console.log('instace',instance)
         request.body = instance;
 
         return next.handle();

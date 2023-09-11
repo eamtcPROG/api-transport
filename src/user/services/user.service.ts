@@ -71,7 +71,7 @@ export class UserService
 
   toDto(obj: any): Idto {
     // const rez = new UserDto();
-let rez
+let rez = {} as any;
     rez.id = this.userRepository.getParsedIdStr(obj._id);
     if (obj.hasOwnProperty('status')) rez.status = obj.status;
     if (obj.hasOwnProperty('registerdate')) rez.registerdate = obj.registerdate;
@@ -99,7 +99,7 @@ let rez
 
   async parseForSave(postObj: any): Promise<Idto> {
     // let obj: UserDto = new UserDto();
-    let obj;
+    let obj = {} as any;
     if (postObj.hasOwnProperty('id')) obj.id = postObj.id;
     if (postObj.hasOwnProperty('status')) obj.status = postObj.status;
     if (postObj.hasOwnProperty('registerdate')) obj.registerdate = postObj.registerdate;
@@ -203,7 +203,7 @@ let rez
 
   prepareUserRegister(email: string, password: string): any {
     // const obj: PostUserDto = new PostUserDto();
-    let obj
+    let obj = {} as any;
     obj.email = email;
     obj.password = password;
     obj.registerdate = ToolsDate.getTimeStamp();
@@ -346,20 +346,20 @@ let rez
       );
       return rez;
     }
-
+console.log('req',req)
     const obj: any = await this.save(
       this.prepareUserRegister(req.email, req.password),
     );
     rez.obj = obj;
-    const setDefaultRole = await this.userRoleService.setDefaultRole(obj.id);
+    // const setDefaultRole = await this.userRoleService.setDefaultRole(obj.id);
 
-    if (setDefaultRole == null) {
-      rez.err = true;
-      rez.messages = MessageTypes.processMessage(
-        MessageTypes.USER_DEFAULT_ROLE_ERROR,
-      );
-      return rez;
-    }
+    // if (setDefaultRole == null) {
+    //   rez.err = true;
+    //   rez.messages = MessageTypes.processMessage(
+    //     MessageTypes.USER_DEFAULT_ROLE_ERROR,
+    //   );
+    //   return rez;
+    // }
 
     rez = this.authService.singIn_Processmustchangepassword(rez);
     rez = await this.authService.singIn_processAccessToken(rez);

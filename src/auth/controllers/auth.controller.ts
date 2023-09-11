@@ -31,7 +31,7 @@ import { MessageTypes } from 'src/app/tools/messagetypes';
 
 @ApiTags('auth')
 @Controller('auth')
-@UseGuards(GeneralAdminGuard)
+// @UseGuards(GeneralAdminGuard)
 export class AuthController {
   constructor(
     private authService: AuthService,
